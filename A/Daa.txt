@@ -1,0 +1,805 @@
+Assignment : Bubble sort,        Insertion Sort,        Linear Search,        Binary Search
+
+Assignment : Mearge Sort        Nuts and Blolts
+
+Assignment :  greedy Fcfs Job Sequencing
+
+Assignment :  Maze Problem,        graph Coloring
+
+Assignment : Traveling sales man           ,      Generate Binary Strings
+
+DAA Assignment 1
+
+ 
+
+1) Bubble Sort 
+
+function sortedarray=bubble_sort(arr)
+
+    n=length(arr)
+
+    for i=1:n-1
+
+        swapping=0
+
+        for j=1:n-i
+
+            if arr(j)>arr(j+1)
+
+                temp=arr(j)
+
+                arr(j)=arr(j+1)
+
+                arr(j+1)=temp
+
+                swapping=1
+
+            end
+
+        end
+
+        if swapping ==0 then
+
+            break
+
+    end
+
+    sortedarray=arr
+
+end
+
+endfunction
+
+ numbers=[5,7,2,3,1,9,6,4,10,9]
+
+ sortedarray=bubble_sort(numbers)
+
+disp("Sorted Array :")
+
+disp(sortedarray)
+
+ 
+
+2)Insertion Sort
+
+ function sortedarray=insertionSort(arr)
+
+    n=length(arr)
+
+    for i=2:n
+
+        temp=arr(i)
+
+        j=i-1
+
+               while (j>0 && arr(j)>temp)
+
+            arr(j+1)=arr(j)
+
+            arr(j)=temp
+
+            j=j-1
+
+        end
+
+    end
+
+    sortedarray=arr
+
+endfunction
+
+ numbers=[5,2,8,3,9]
+
+disp("Before Sorting Array:")
+
+disp(numbers)
+
+sortedarray=insertionSort(numbers)
+
+disp("After Sorting Array:")
+
+disp(sortedarray)
+
+ 
+
+3) Linear Search
+
+ 
+
+function linear_search(arr,num)
+
+    n=length(arr)
+
+    found=-1
+
+    for i=1:n
+
+        if arr(i) ==num
+
+            found=1
+
+            break
+
+         end
+
+    end
+
+    if found == -1 then
+
+        disp("Element is not found. ")
+
+    else
+
+        disp("Element is found at position "+string(i)+":")
+
+    end
+
+endfunction
+
+arr=[]
+
+for i=1:5
+
+    arr(i)=input("Enter Number :"+string(i)+":")
+
+end
+
+num=input("Enter number to be searched :")
+
+linear_search(arr,num)
+
+
+
+4)Binary Search
+
+function binarySearch(x,no)
+
+    n=length(x)
+
+    low=0
+
+    high=n
+
+    mid=0
+
+    result=-1
+
+       for i=1:n-1
+
+        swapping=0
+
+        for j=1:n-i
+
+            if x(j)>x(j+1)
+
+                temp=x(j)
+
+                x(j)=x(j+1)
+
+                x(j+1)=temp
+
+                swapping=1
+
+            end
+
+        end
+
+        if swapping ==0 then
+
+        break
+
+    end
+
+end
+
+       while low<=high
+
+        mid=floor((low+high)/2)
+
+        if (no==x(mid))
+
+            result=1
+
+            break
+
+        elseif (no<x(mid))
+
+            high=mid-1
+
+        else low=mid+1
+
+        end
+
+    end
+
+    if (result ==1)
+
+        disp("Sorted Input Array:")
+
+        disp(x)
+
+        disp("Element found at position :"+string(mid))
+
+    else
+
+        disp("Number not found ")
+
+        break
+
+    end
+
+endfunction
+
+ x=[]
+
+for i=1:5
+
+    x(i)=input("Enter element :"+string(i)+" :")
+
+end
+
+no=input("Enter number to be searched :")
+
+binarySearch(x,no)
+
+
+
+DAA - Assignment 2
+
+Q1)  mergeSort
+
+function sortedArray=mergeSort(arr,start,last)
+
+    if start<last
+
+        mid = floor((start+last)/2);
+
+        left = mergeSort(arr,start,mid);
+
+        right = mergeSort(arr,mid+1,last);
+
+        sortedArray = merge(left,right);
+
+    else
+
+        sortedArray = arr(start);
+
+    end
+
+endfunction
+
+ function mergedArray = merge(left,right)
+
+
+    i=1;
+
+    j=1;
+
+    k=1;
+
+    mergedArray = zeros(1,length(left)+length(right));
+
+    while i<=length(left) && j<=length(right)
+
+        if left(i)<right(j)
+
+            mergedArray(k) = left(i);
+
+            i=i+1;
+
+        else
+
+            mergedArray(k) = right(j);
+
+            j=j+1;
+
+        end
+
+        k=k+1;
+
+    end
+
+       while i<= length(left)
+
+
+        mergedArray(k)=left(i);
+
+        i=i+1;
+
+        k=k+1;
+
+    end
+
+    while j<= length(right)
+
+        mergedArray(k)=right(j);
+
+        j=j+1;
+
+        k=k+1;
+
+    end
+
+endfunction
+
+ numbers=[12,15,11,5,6];
+
+
+disp("Original Array :")
+
+disp(numbers)
+
+sortedNumbers =mergeSort(numbers,1,length(numbers));
+
+disp("Sorted Array :")
+
+disp(sortedNumbers);
+
+ 
+
+Q2)   nuts and bolts
+
+
+function quickSortNutsAndBolts(nuts,bolts,low,high)
+
+    if low < high then
+
+        pivotid = partition(nuts,low, high,bolts(high))
+
+        partition(nuts,low,high,nuts(pivotid))
+
+
+        partition(bolts,low,high,bolts(pivotid))
+
+        quickSortNutsAndBolts(nuts,bolts,low,pivotid-1)
+
+        quickSortNutsAndBolts(nuts,bolts,pivotid+1,high)      
+
+
+    end
+
+endfunction
+
+function pivotid = partition(arr,low,high,pivot)
+
+    left=low
+
+    for i=low:high
+
+        if arr(i)<pivot
+
+            swap(arr,i,left)
+
+            left=left+1
+
+        elseif arr(i) == pivot
+
+            swap(arr,i,high)
+
+            i=i-1;
+
+        end
+
+    end
+
+    swap(arr,left,high)
+
+    pivotid=left;
+
+endfunction
+
+function swap(arr,i,j)
+
+    temp =arr(i)
+
+    arr(i)=arr(j)
+
+    arr(j)=temp
+
+endfunction
+
+function matchNutsAndBolts(nuts,bolts)
+
+    quickSortNutsAndBolts(nuts,bolts,1,length(nuts))
+
+endfunction
+
+nuts = [3,6,2,4];
+
+bolts = [1,6,3,4];
+
+matchNutsAndBolts(nuts,bolts)
+
+disp("Matched Nuts and Bolts :")
+
+
+disp(nuts)
+
+disp(bolts)
+
+ 
+
+ DAA Assignment 3
+
+
+
+1)  greedy Fcfs Job Sequencing
+
+function assignment = greedyFcfsJobSequencing(costMatrix)
+
+    N = size(costMatrix, 1);
+
+    assignment = zeros(N, 1);
+
+     for i = 1:N
+
+        [minVal, minIndex] = min(costMatrix(i, :));
+
+        assignment(i) = minIndex;
+
+        costMatrix(:, minIndex) = %inf;
+
+    end
+
+endfunction
+
+N = input("Enter the number of workers: ");
+
+costMatrix = zeros(N, N);
+
+disp("Enter the cost matrix values:");
+
+for i = 1:N
+
+    for j = 1:N
+
+        costMatrix(i, j) = input("Enter the cost for Worker " + string(i) + " for Job " + string(j) + ": ");
+
+    end
+
+end
+
+disp("Cost Matrix:");
+
+disp(costMatrix);msc404
+
+assignment = greedyFcfsJobSequencing(costMatrix);
+
+disp("Assignment (Worker -> Job) using Greedy FCFS:");
+
+for i = 1:length(assignment)
+
+disp("Worker " + string(i) + " -> Job " + string(assignment(i)));
+
+end 
+
+ 
+
+DAA Assignment4
+
+1) Maze problem
+
+function move(m, n, x, y, maze)
+
+    maze(x, y) = 2;
+
+    disp(maze);
+
+
+    if x == goal(1) & y == goal(2) then
+
+        return;
+
+    end
+
+      if x < m & maze(x + 1, y) == 1 then
+
+
+        move(m, n, x + 1, y, maze);
+
+    end
+
+      if y < n & maze(x, y + 1) == 1 then
+
+
+        move(m, n, x, y + 1, maze);
+
+    end
+
+    if y > 1 & maze(x, y - 1) == 1 then
+
+        move(m, n, x, y - 1, maze);
+
+    end
+
+      if x > 1 & maze(x - 1, y) == 1 then
+
+
+        move(m, n, x - 1, y, maze);
+
+    end
+
+endfunction
+
+function backtrack(x, y, maze)
+
+
+    maze(x, y) = 1;
+
+    disp(maze);
+
+      if x == start(1) & y == start(2) then
+
+
+        return;
+
+    end
+
+      if x < m & maze(x + 1, y) == 0 then
+
+
+        backtrack(x + 1, y, maze);
+
+    end
+
+   
+
+    if y < n & maze(x, y + 1) == 0 then
+
+        backtrack(x, y + 1, maze);
+
+    end
+
+   
+
+    if y > 1 & maze(x, y - 1) == 0 then
+
+        backtrack(x, y - 1, maze);
+
+    end
+
+   
+
+    if x > 1 & maze(x - 1, y) == 0 then
+
+        backtrack(x - 1, y, maze);
+
+    end
+
+endfunction
+
+ 
+
+maze = [1, 0, 0, 0;
+
+        1, 1, 1, 1;
+
+        0, 1, 0, 1;
+
+        1, 0, 1, 1];
+
+start = [1, 1];
+
+goal = [4, 4];
+
+n = size(maze, 1);
+
+m = size(maze, 2);
+
+disp(maze);
+
+ 
+
+move(m, n, start(1), start(2), maze);
+
+backtrack(goal(1), goal(2), maze);
+
+ 
+
+2) Graph Coloring
+
+function chromatic_number = graph_coloring(adjacency_matrix)
+
+    num_vertices = size(adjacency_matrix, 1);
+
+    coloring = zeros(1, num_vertices);
+
+    num_colors = 0;
+
+ 
+
+    for vertex = 1:num_vertices
+
+        available_colors = zeros(1, num_vertices);
+
+ 
+
+        for neighbor = 1:num_vertices
+
+            if adjacency_matrix(vertex, neighbor) == 1
+
+                if coloring(neighbor) > 0
+
+                    available_colors(coloring(neighbor)) = 1;
+
+                end
+
+            end
+
+        end
+
+ 
+
+        for color = 1:num_vertices
+
+            if available_colors(color) == 0
+
+                coloring(vertex) = color;
+
+                num_colors = max(num_colors, color);
+
+                break;
+
+            end
+
+        end
+
+    end
+
+ 
+
+    chromatic_number = num_colors;
+
+end
+
+ 
+
+adjacency_matrix = [
+
+    0 1 1 1;
+
+    1 0 1 0;
+
+    1 1 0 1;
+
+    1 0 1 0
+
+];
+
+ 
+
+chromatic_number = graph_coloring(adjacency_matrix);
+
+disp('Minimum number of time slots required: ')
+
+disp(chromatic_number)
+
+ 
+
+
+
+DAA Assignment 5
+
+ 
+
+1)   tsp_nearest_neighbor
+
+function tsp_nearest_neighbor(cities)
+
+    n=size(cities,1)//no.of cities
+
+    tour=zeros(1,n)//initialize the tour
+
+    visited=zeros(1,n)//track visited cities
+
+    current_city=1
+
+    tour(1)=current_city
+
+    visited(1)=1
+
+   
+
+    for i=2:n
+
+        min_distance=%inf
+
+        for j=1:n
+
+            if j~=current_city && visited(j)==0
+
+                distance = norm(cities(current_city,:)-cities(j,:))
+
+                if distance<min_distance
+
+                    min_distance=distance
+
+                    tour(i)=j
+
+                end
+
+            end
+
+    end
+
+    visited(tour(i))=1
+
+    current_city=tour(i)
+
+end
+
+tour(n+1)=tour(1)
+
+total_distance=0
+
+for i=1:n
+
+    total_distance=total_distance+norm(cities(tour(i),:)-cities(tour(i+1),:))
+
+end
+
+ 
+
+disp("Tour order:")
+
+disp(tour)
+
+disp(["Total tour length:",string(total_distance)])
+
+end
+
+ 
+
+cities=[0 15 1;
+
+        0 10 2;
+
+        0 20 3;
+
+        1 35 2;
+
+        1 25 3;
+
+        2 30 2]
+
+tsp_nearest_neighbor(cities)
+
+
+
+
+
+2)  generateBinaryStrings
+
+function generateBinaryStrings(N)
+
+      function generateStringsHelper(N, prefix)
+
+        if N==0 then
+
+            disp(prefix)
+
+        else
+
+            generateStringsHelper(N-1,prefix+'0')
+
+            generateStringsHelper(N-1,prefix+'1')
+
+            end
+
+endfunction
+
+if N > 0
+
+    generateStringsHelper(N,"")
+
+else
+
+    disp("N must be a positive integer.")
+
+end
+
+end
+
+N=3
+
+generateBinaryStrings(N)
